@@ -1,4 +1,6 @@
-This repository is still work in progress
+
+# Usage[WIP]
+note : dont worry about size of image
 
 # Neural Style Tansfer with Pytorch
 
@@ -110,6 +112,8 @@ $L_{Style}(S,G) = \sum_{l=0}^{L}L_{GM}(S,G,l)$
 
 where L represent the number of layers considered for style loss
 
+## Why gram matrix work ?
+Gram Matrix is correlation matrix between feature maps. What this basically means is given N feature maps. If a given feature map is hugely activated and when a correlation is calculated with anther feature map which is also activated then the corresponding value of gram matrix will be high. As a result it forces the generated images gram matrix to have similar style patterns.
 
 ## Experiment with different weights of style
 
@@ -130,17 +134,43 @@ Changing the weight of style loss and content loss will change the predominant f
 |<img src="./images/1e6_1e4_bridge.jpeg" height = "150">|<img src="./images/1e6_5e4_bridge.jpeg" height = "150" width = "200">|
 
 
+## NST for data Augmentation 
+NST if used properly can be very helpful in data augmentation. One good example is converting daytime of a city to night time as shown below
 
-## Things no one say to you
+<div align = "center">
+
+|style image|
+| --- |
+|<img src="./images/city_night.jpg" height = "150">|<img src="./images/1e6_5e4_bridge.jpeg" height = "150" width = "200">|
+
+</div>
+
+|Content Image| generated_image|
+| --- | ----------- |
+|<img src="./images/night_city_1.jpeg" height = "150">|<img src="./images/city_converted_to_night_1.jpeg" height = "150" width = "200">|
+|<img src="./images/night_city_2.jpg" height = "150">|<img src="./images/city_converted_to_night_2.jpeg" height = "150" width = "200">|
+
+Observe the converted image have the night effect of style image like lights on building walls etc.
+
+## How back propogation work in NST
+In general back propogation is used to update weights of the neural network. But in NST we sue back propagation to update the input image so that we genearte stylised image. 
+
+Initially genearted image is filled with guassian noise. However while converting generated image to tensor we set the generated image tensor to trainable. Also all the parameters in pretrained CNN network are set to non-trainable. When we multiply the generated image with CNN generated image will become the part of network and since we set the input image to trainable, loss values start updating the generated image converting it into stylised image.
+
+
+
+
+## How size of style image effect patterns in output
 1. use it for data augmenttion
-2. how tensor graph work in back prop
+2. how tensor graph update image in back prop
 3. why gram matrix work
-4. change in style size can recognise patterns easily
+4. change in style size can recognise patterns easily (how to generate good style)
 
-## Usage
+
 
 ## Credits
- __NOTE :__ This implementation is inspired from [this](https://www.youtube.com/watch?v=S78LQebx6jo&list=PLBoQnSflObcmbfshq9oNs41vODgXG-608&ab_channel=TheAIEpiphany) tutorial on YouTube by [Aleksa Gordic](https://github.com/gordicaleksa)
+ - This implementation is inspired from [this](https://www.youtube.com/watch?v=S78LQebx6jo&list=PLBoQnSflObcmbfshq9oNs41vODgXG-608&ab_channel=TheAIEpiphany) tutorial on YouTube by [Aleksa Gordic](https://github.com/gordicaleksa)
+ - Some of the images i have use for explanation are from [here](https://towardsdatascience.com/neural-style-transfer-tutorial-part-1-f5cd3315fa7f)
 
 ## Further References
 
