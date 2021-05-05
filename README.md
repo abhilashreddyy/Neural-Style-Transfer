@@ -19,14 +19,14 @@ Config file contains all the parameters you can tune
 - __RESHAPE_CONTENT_IMAGE__
   - Desired height of new content image
     - If there are too many pixels GPU memory may get exhausted and could take lot of time to train. In such cases reduce the image resolution
-  - __range__ : 1 to <preferably number smaller than content image height>
+  - __range__ : 1 to {preferably number smaller than content image height}
   - __Width will be automatically adjusted according to aspect ratio__
 - __RESHAPE_STYLE_IMAGE__
   - Desired height of new style image
     - If the style image have huge resolution then CNN will not be able to capture the patterns in image
     - In such cases try to reduce the resolution of style image so that patterns in the style image are easily captured 
     - Also, If there are too many pixels GPU memory may get exhausted and could take lot of time to train. In such cases reduce the image resolution
-    - __range__ : 1 to <preferably number smaller than style image height>
+    - __range__ : 1 to {preferably number smaller than style image height}
   - __Width will be automatically adjusted according to aspect ratio__
 - __OUTPUT_PATH__
   - absolute or realtive path of output folder
