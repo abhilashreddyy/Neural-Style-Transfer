@@ -1,9 +1,58 @@
 
-# Usage[WIP]
-note : dont worry about size of image
-
 # Neural Style Tansfer with Pytorch
 
+# Usage
+Config file contains all the parameters you can tune
+- __MODEL__
+  - There are three options
+    - "VGG19"
+      - Generates good results but heavy model
+    - "VGG16"
+      - Generates average results but comparitively lighter model than VGG19
+    - "MobileNet"
+      - Dont use this. It was just used for experimentation
+      - Maybe because of depthwise seperable convolution the generated images clarity is poor
+- __CONTENT_IMAGE_PTH__
+  - absolute or realtive path of content image
+- __STYLE_IMAGE_PTH__ 
+  - absolute or realtive path of style image
+- __RESHAPE_CONTENT_IMAGE__
+  - Desired height of new content image
+    - If there are too many pixels GPU memory may get exhausted and could take lot of time to train. In such cases reduce the image resolution
+  - __range__ : 1 to <preferably number smaller than content image height>
+  - __Width will be automatically adjusted according to aspect ratio__
+- __RESHAPE_STYLE_IMAGE__
+  - Desired height of new style image
+    - If the style image have huge resolution then CNN will not be able to capture the patterns in image
+    - In such cases try to reduce the resolution of style image so that patterns in the style image are easily captured 
+    - Also, If there are too many pixels GPU memory may get exhausted and could take lot of time to train. In such cases reduce the image resolution
+    - __range__ : 1 to <preferably number smaller than style image height>
+  - __Width will be automatically adjusted according to aspect ratio__
+- __OUTPUT_PATH__
+  - absolute or realtive path of output folder
+- __EPOCS__
+  - number of epocs to train the generated image
+  - with LEARNING RATE 1e1 sweet spot is somewhere around 1500-2000
+  - __range__ : 0 to +inf
+- __LEARNING_RATE__
+  - Learning rate of generated image. In other words speed with which generated image is updated
+  - __range__ : 0 to +inf
+- __CONTENT_WEIGHT__
+  - weight of content component of loss
+  - __range__ : 0 to +inf
+- __STYLE_WEIGHT__
+  - weight of style component of loss
+  - for VGG19 good content and style weight is around (1e6,1e3-2e3)
+  - __range__ : 0 to +inf
+- __SAVE_FREQ__
+  - Saving frequency of the output image in terms of epocs
+  - If set to 10 output image will be saved after every 10 epocs
+  - __range__ : 1 to <number smaller than EPOCS>
+
+__NOTE__ : Dont worry about difference in size of content or style image. Any size of image works
+
+
+# Theory
 Now we are in an era where neural networks generate art. This reository is an implementation of the paper [Neural Style Transfer Paper](https://arxiv.org/abs/1508.06576) by Leon A. Gatys, Alexander S. Ecker, Matthias Bethge. 
 
 The paper presents and algorithm for combining the content of  one image  with the style of another image using Convolutional Neural Networks. Here is and example of combining my content image with and style image made of black and white texture.

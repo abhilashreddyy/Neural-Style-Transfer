@@ -20,7 +20,7 @@ def read_and_resize(img_path, new_height = None, plot = False):
     #change BGR to RGB format
     img = cv.imread(img_path)[:, :, ::-1]
 
-    if new_height:
+    if new_height > 0 and new_height != None:
         new_shape = get_new_shape(img, new_height)
         img = cv.resize(img, new_shape)
 
@@ -49,26 +49,20 @@ def init_guassian_image(shape, device):
     gaussian_noise_img = torch.from_numpy(gaussian_noise_img).float().to(device)
     return gaussian_noise_img
 
-
-def generate_out_img_name(config):
-    prefix = os.path.basename(config['content_img_name']).split('.')[0] + '_' + os.path.basename(config['style_img_name']).split('.')[0]
-    # called from the reconstruction script
-    if 'reconstruct_script' in config:
-        suffix = f'_o_{config["optimizer"]}_h_{str(config["height"])}_m_{config["model"]}{config["img_format"][1]}'
-    else:
-        suffix = f'_o_{config["optimizer"]}_i_{config["init_method"]}_h_{str(config["height"])}_m_{config["model"]}_cw_{config["content_weight"]}_sw_{config["style_weight"]}_tv_{config["tv_weight"]}{config["img_format"][1]}'
-    return prefix + suffix
+def get_outfile_name(config, num_of_iterations):
+    outfile_name = os.path.basename(config.CONTENT_IMAGE_PTH).split(".")[0] + "_" + os.path.basename(config.STYLE_IMAGE_PTH).split(".")[0] \
+        +"_"+str(num_of_iterations) + ".jpg"
+    return outfile_name
 
 
-def save_and_maybe_display(optimizing_img, config, img_id, num_of_iterations, should_display=False):
-    saving_freq = 2
+def save_and_maybe_display(optimizing_img, config, num_of_iterations, should_display=False):
+
     out_img = optimizing_img.squeeze(axis=0).to('cpu').detach().numpy()
     out_img = np.moveaxis(out_img, 0, 2)  # swap channel from 1st to 3rd position: ch, _, _ -> _, _, chr
 
-    # for saving_freq == -1 save only the final result (otherwise save with frequency saving_freq and save the last pic)
-    if img_id == num_of_iterations-1 or (saving_freq > 0 and img_id % saving_freq == 0):
-        # img_format = config['img_format']
-        out_img_name = "./temp.jpg"#str(img_id).zfill(img_format[0]) + img_format[1] if saving_freq != -1 else generate_out_img_name(config)
+
+    if config.SAVE_FREQ > 0 and num_of_iterations % config.SAVE_FREQ == 0:
+        out_img_name = get_outfile_name(config, num_of_iterations)
         dump_img = np.copy(out_img)
         dump_img += np.array(IMAGENET_MEAN_255).reshape((1, 1, 3))
         dump_img = np.clip(dump_img, 0, 255).astype('uint8')
