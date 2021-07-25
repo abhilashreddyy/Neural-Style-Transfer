@@ -75,7 +75,7 @@ Consider the example applying various styles on content image related to nature
 |__Style Image__| __Final Result__|
 | --- | ----------- |
 | <img src="./images/nature/nature_texture.jpg" height="130"> | <img src="./images/nature/art_nature.jpeg" height=130, width="250"/> 
-| <img src="./images/nature/vg_wheat_field.jpg"> | <img src="./images/nature/good_crayon.jpeg" width=670/> 
+| <img src="./images/nature/vg_wheat_field_cropped.jpg"> | <img src="./images/nature/good_crayon.jpeg" width=670/> 
 
 
 Loss Function
