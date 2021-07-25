@@ -57,11 +57,12 @@ Now we are in an era where neural networks generate art. This reository is an im
 
 The paper presents and algorithm for combining the content of  one image  with the style of another image using Convolutional Neural Networks. Here is and example of combining my content image with and style image made of black and white texture.
 
-|   Style Transfer        ||
+|   Styled image | Normal Image|
 | --- | ----------- |
-| <img src="./images/elephant.jpg" width="670"/> | <img src="./images/my_pic.jpeg"/> 
+| <img src="./images/mosaic.jpg" width="670"/> | <img src="./images/my_pic.jpeg"/> 
 
-<img src="./images/elephant_texture_my_pic.jpeg"/>
+__Style Transfer__
+<img src="./images/mosaic_transfer.jpeg"/>
 
 
 ## Applying syle using various styling images
@@ -102,7 +103,7 @@ There are two components of loss as described above
 2. Style Loss ($L_{style}$)
 
 Therefore total loss is 
-<div align = "center">
+<div align = "center" style="background-color:white">
 
 ![loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Total}(S,C,G)%20=%20\alpha%20L_{Content}(C,G)+\beta%20L_{Style}(S,G))
 
