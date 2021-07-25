@@ -104,9 +104,7 @@ There are two components of loss as described above
 Therefore total loss is 
 <div align = "center">
 
-$L_{Total}(S,C,G) = \alpha L_{Content}(C,G)+\beta L_{Style}(S,G)$
-
-
+![loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Total}(S,C,G)%20=%20\alpha%20L_{Content}(C,G)+\beta%20L_{Style}(S,G))
 
 </div>
 
@@ -124,10 +122,10 @@ In the above image we can observe how a single convolution happend. The final cu
 
 Content loss represent the difference in the content of the content image and generated image. At a given layer of CNN feature maps are generated for both content image and target image. Then we calculate mean square error loss between each corresponding feature maps. In this repository we mainly use VGG19 where we use 2nd convolutions feature maps for calculating content loss.
 
+
 <div align = "center">
 
-$L_{content}(C,G) =\frac {1}{2}\sum (C_{i,j,k}^{l}-G_{i,j,k}^{l})^2$
-
+![content loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{content}(C,G)%20=\frac%20{1}{2}\sum%20(C_{i,j,k}^{l}-G_{i,j,k}^{l})^2)
 </div>
 
 Hence at a given layer of CNN $n$ is feature map number $i,j,k$ is the index of the individual feature. According to above diagram $i=224, j=224,k = 64$
@@ -144,8 +142,7 @@ In the above image correlation is calculated among each feature map at a given l
 
 <div align="center">
 
-$L_{GM}(S,G,l) = \sum_{ij}(GM[l](S)_{ij}-GM[l](G)_{ij})^2$
-
+![style loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{GM}(S,G,l)%20=%20\sum_{ij}(GM[l](S)_{ij}-GM[l](G)_{ij})^2)
 </div>
 
 Here $GM[l](S)_{ij}$ means number at position i,j in gram matrix of layer l in CNN when style image is used as input.
@@ -155,7 +152,7 @@ Style loss is calculated from multiple layers as shown above. different layers i
 Total Style loss
 <div align="center">
 
-$L_{Style}(S,G) = \sum_{l=0}^{L}L_{GM}(S,G,l)$
+![final style loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Style}(S,G)%20=%20\sum_{l=0}^{L}L_{GM}(S,G,l))
 
 </div>
 
@@ -220,9 +217,3 @@ Initially genearted image is filled with guassian noise. However while convertin
 ## Credits
  - This implementation is inspired from [this](https://www.youtube.com/watch?v=S78LQebx6jo&list=PLBoQnSflObcmbfshq9oNs41vODgXG-608&ab_channel=TheAIEpiphany) tutorial on YouTube by [Aleksa Gordic](https://github.com/gordicaleksa)
  - Some of the images i have use for explanation are from [here](https://towardsdatascience.com/neural-style-transfer-tutorial-part-1-f5cd3315fa7f)
-
-## Further References
-
-#### [TBD] exeption handling, command line parameters
-#### restructure files and save experiment images properly
-#### keep which layers to use in which network as config
