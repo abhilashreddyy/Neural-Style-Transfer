@@ -60,8 +60,7 @@ The paper presents and algorithm for combining the content of  one image  with t
 |   Styled image | Normal Image|
 | --- | ----------- |
 | <img src="./images/mosaic.jpg" width="670"/> | <img src="./images/my_pic.jpeg"/> 
-
-__Style Transfer__
+__After Style Transfer__
 <img src="./images/mosaic_transfer.jpeg"/>
 
 
@@ -74,8 +73,8 @@ Consider the example applying various styles on content image related to nature
 
 |__Style Image__| __Final Result__|
 | --- | ----------- |
-| <img src="./images/nature/nature_texture.jpg" height="130"> | <img src="./images/nature/art_nature.jpeg" height=130, width="250"/> 
-| <img src="./images/nature/vg_wheat_field_cropped.jpg"> | <img src="./images/nature/good_crayon.jpeg" width=670/> 
+| <img src="./images/nature/nature_texture.jpg" height=260, width="500"> | <img src="./images/nature/art_nature.jpeg" height=260, width="500"> 
+| <img src="./images/nature/vg_wheat_field_cropped.jpg" height=260, width="500"> | <img src="./images/nature/good_crayon.jpeg" height=260, width="500"> 
 
 
 Loss Function
@@ -99,8 +98,8 @@ Finally loss is calculated between style image, target image and content image, 
 
 ## Loss Calculation
 There are two components of loss as described above
-1. Content Loss ($L_{content}$)
-2. Style Loss ($L_{style}$)
+1. Content Loss (![content loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Content}))
+2. Style Loss (![style loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Style}))
 
 Therefore total loss is 
 <div align = "center" style="background-color:white">
@@ -109,7 +108,7 @@ Therefore total loss is
 
 </div>
 
-Where S is style image, C is content image, G is generated Image and $\alpha$ is weight of Content Loss and $\beta$ is weight of style loss. We will see how these weight affect the target image (output).
+Where S is style image, C is content image, G is generated Image and ![alpha](https://latex.codecogs.com/svg.latex?\Large&space;\alpha) is weight of Content Loss and ![beta](https://latex.codecogs.com/svg.latex?\Large&space;\beta) is weight of style loss. We will see how these weight affect the target image (output).
 
 Before going further lets understand how feature maps are generated.
 
@@ -119,7 +118,7 @@ Before going further lets understand how feature maps are generated.
 In the above image we can observe how a single convolution happend. The final cube which is at far right of the image is called __feature maps__/__activation maps__ where there 64 feature maps each of shape 224*224.
 
 
-### 1. Content Loss ($L_{content}$)
+### 1. Content Loss (![content loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Content}))
 
 Content loss represent the difference in the content of the content image and generated image. At a given layer of CNN feature maps are generated for both content image and target image. Then we calculate mean square error loss between each corresponding feature maps. In this repository we mainly use VGG19 where we use 2nd convolutions feature maps for calculating content loss.
 
@@ -129,9 +128,9 @@ Content loss represent the difference in the content of the content image and ge
 ![content loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{content}(C,G)%20=\frac%20{1}{2}\sum%20(C_{i,j,k}^{l}-G_{i,j,k}^{l})^2)
 </div>
 
-Hence at a given layer of CNN $n$ is feature map number $i,j,k$ is the index of the individual feature. According to above diagram $i=224, j=224,k = 64$
+Hence at a given layer of CNN ![n](https://latex.codecogs.com/svg.latex?\Large&space;n) is feature map number ![i,j,k](https://latex.codecogs.com/svg.latex?\Large&space;i,j,k) is the index of the individual feature. According to above diagram _i=224, j=224,k = 64_
 
-### 2. Style Loss ($L_{style}$) 
+### 2. Style Loss (![style loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{Style})) 
 
 Style loss mesasures the differnece between style of generated image and style image. It help in maintaining the texture patterns from the style image into generated image.
 
@@ -139,14 +138,14 @@ Gram matrix(GM) is generated from feature maps which used to generate style loss
 
 <img src="./images/gram_matrix_generate.jpeg">
 
-In the above image correlation is calculated among each feature map at a given layer to generate gram matrix(GM). Therefore if the shape of the feature map of syle image is $4*4*5$ then the shape of gram matrix is $5*5$. Because correlation is calculate across each feature map of shape $4*4$ with all other feature maps resulting in $5*5$ combinations
+In the above image correlation is calculated among each feature map at a given layer to generate gram matrix(GM). Therefore if the shape of the feature map of syle image is 4*4*5 then the shape of gram matrix is5*5$. Because correlation is calculate across each feature map of shape 4*4 with all other feature maps resulting in 5*5 combinations
 
 <div align="center">
 
 ![style loss](https://latex.codecogs.com/svg.latex?\Large&space;L_{GM}(S,G,l)%20=%20\sum_{ij}(GM[l](S)_{ij}-GM[l](G)_{ij})^2)
 </div>
 
-Here $GM[l](S)_{ij}$ means number at position i,j in gram matrix of layer l in CNN when style image is used as input.
+Here ![GM[l](S)_{ij}](https://latex.codecogs.com/svg.latex?\Large&space;GM[l](S)_{ij}) means number at position i,j in gram matrix of layer l in CNN when style image is used as input.
 
 Style loss is calculated from multiple layers as shown above. different layers in CNN extract different level of patterns in image (eg : initial layers extract edges then colours and textures, then larger patterns). Hence considering different layers of CNN for style loss will help in adding various levels (edges, colours, small patterns, large patterns) of texture/style to the generated image.
 
@@ -168,17 +167,16 @@ Changing the weight of style loss and content loss will change the predominant f
 
 |Content Image| Style Image|
 | --- | ----------- |
-|<img src="./images/green_bridge.jpg" height = "150">|<img src="./images/vg_la_cafe.jpg" height = "150" width = "200">|
-
+|<img src="./images/green_bridge.jpg" height=260, width="500">|<img src="./images/vg_la_cafe.jpg" height=260, width="500">|
 |style weight = 2e2 , content weight = 1e6| style weight = 1e3 , content weight = 1e6|
 | --- | ----------- |
-|<img src="./images/1e6_2e2_bridge.jpeg" height = "150">|<img src="./images/1e6_1e3_bridge.jpeg" height = "150" width = "200">|
+|<img src="./images/1e6_2e2_bridge.jpeg" height=260, width="500">|<img src="./images/1e6_1e3_bridge.jpeg" height=260, width="500">|
 |style weight = 3e3 , content weight = 1e6| style weight = 7e3 , content weight = 1e6|
 | --- | ----------- |
-|<img src="./images/1e6_3e3_bridge.jpeg" height = "150">|<img src="./images/1e6_7e3_bridge.jpeg" height = "150" width = "200">|
+|<img src="./images/1e6_3e3_bridge.jpeg" height=260, width="500">|<img src="./images/1e6_7e3_bridge.jpeg" height=260, width="500">|
 |style weight = 1e4 , content weight = 1e6| style weight = 5e4 , content weight = 1e6|
 | --- | ----------- |
-|<img src="./images/1e6_1e4_bridge.jpeg" height = "150">|<img src="./images/1e6_5e4_bridge.jpeg" height = "150" width = "200">|
+|<img src="./images/1e6_1e4_bridge.jpeg" height=260, width="500">|<img src="./images/1e6_5e4_bridge.jpeg" height=260, width="500">|
 
 
 ## NST for data Augmentation 
@@ -188,14 +186,14 @@ NST if used properly can be very helpful in data augmentation. One good example 
 
 |style image|
 | --- |
-|<img src="./images/city_night.jpg" height = "150">|<img src="./images/1e6_5e4_bridge.jpeg" height = "150" width = "200">|
+|<img src="./images/city_night.jpg" height=260, width="500">|<img src="./images/1e6_5e4_bridge.jpeg" height=260, width="500">|
 
 </div>
 
 |Content Image| generated_image|
 | --- | ----------- |
-|<img src="./images/night_city_1.jpeg" height = "150">|<img src="./images/city_converted_to_night_1.jpeg" height = "150" width = "200">|
-|<img src="./images/night_city_2.jpg" height = "150">|<img src="./images/city_converted_to_night_2.jpeg" height = "150" width = "200">|
+|<img src="./images/night_city_1.jpeg" height=260, width="500">|<img src="./images/city_converted_to_night_1.jpeg" height=260, width="500">|
+|<img src="./images/night_city_2.jpg" height=260, width="500">|<img src="./images/city_converted_to_night_2.jpeg" height=260, width="500">|
 
 Observe the converted image have the night effect of style image like lights on building walls etc.
 
