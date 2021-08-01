@@ -5,7 +5,7 @@
 - [Theory](https://github.com/abhilashreddyy/Neural-Style-Transfer#theory)
   - [How NST works ?](https://github.com/abhilashreddyy/Neural-Style-Transfer#how-neural-style-transfer-nst-works-)
     - [Loss Calculation](https://github.com/abhilashreddyy/Neural-Style-Transfer#loss-calculation)
-- [Experiments with different Parameters]()
+- [Experiments with different Parameters](https://github.com/abhilashreddyy/Neural-Style-Transfer#experiments-with-different-parameters)
 - [NST for Data Augmentation](https://github.com/abhilashreddyy/Neural-Style-Transfer#nst-for-data-augmentation)
 - [How Back Propagation work in NST](https://github.com/abhilashreddyy/Neural-Style-Transfer#how-back-propogation-work-in-nst)
 - [Credits](https://github.com/abhilashreddyy/Neural-Style-Transfer#credits)
