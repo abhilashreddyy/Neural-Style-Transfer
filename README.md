@@ -1,5 +1,14 @@
 
-# Neural Style Tansfer with Pytorch
+# Neural Style Tansfer(NST) with Pytorch
+## Index
+- [Usage](https://github.com/abhilashreddyy/Neural-Style-Transfer#usage)
+- [Theory](https://github.com/abhilashreddyy/Neural-Style-Transfer#theory)
+  - [How NST works ?](https://github.com/abhilashreddyy/Neural-Style-Transfer#how-neural-style-transfer-nst-works-)
+    - [Loss Calculation](https://github.com/abhilashreddyy/Neural-Style-Transfer#loss-calculation)
+- [Experiments with different Parameters]()
+- [NST for Data Augmentation](https://github.com/abhilashreddyy/Neural-Style-Transfer#nst-for-data-augmentation)
+- [How Back Propagation work in NST](https://github.com/abhilashreddyy/Neural-Style-Transfer#how-back-propogation-work-in-nst)
+- [Credits](https://github.com/abhilashreddyy/Neural-Style-Transfer#credits)
 
 # Usage
 Config file contains all the parameters you can tune
@@ -161,7 +170,7 @@ where L represent the number of layers considered for style loss
 ## Why gram matrix work ?
 Gram Matrix is correlation matrix between feature maps. What this basically means is given N feature maps. If a given feature map is hugely activated and when a correlation is calculated with anther feature map which is also activated then the corresponding value of gram matrix will be high. As a result it forces the generated images gram matrix to have similar style patterns.
 
-## Experiment with different weights of style
+## Experiments with different Parameters
 
 Changing the weight of style loss and content loss will change the predominant feature of the image. If the content weight is larger then content will be dominant feature of generated and vice versa. Below images are generated from different weights of styles
 
